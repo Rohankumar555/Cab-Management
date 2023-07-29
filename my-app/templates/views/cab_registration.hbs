@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cab Registration</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="css/cab_registration.css">
+</head>
+<body>
+    
+
+    <div class="container">
+        <header>
+            <!-- <h1>
+                <a href="#">
+                    <img src="http://tfgms.com/sandbox/dailyui/logo-1.png" alt="Cab services">
+                </a>
+            </h1> -->
+        </header>
+        <h1 class="text-center">Register</h1>
+        <form class="registration-form">
+            <!-- <label class="col-one-half">
+                <span class="label-text">First Name</span>
+                <input type="text" name="firstName">
+            </label>
+            <label class="col-one-half">
+                <span class="label-text">Last Name</span>
+                <input type="text" name="lastName">
+            </label> -->
+            <label>
+                <span class="label-text">Cab Model</span>
+                <input type="text" name="model">
+            </label>
+            <label>
+                <span class="label-text">Cab Registration Number</span>
+                <input type="text" name="ID">
+            </label>
+            <label>
+                <span class="label-text">Cab Colour</span>
+                <input type="text" name="colour">
+            </label>
+            <label >
+                <span class="label-text">Select Picture</span>
+                <input type="file" name="avatar" accept="image/*" required />
+            </label>
+            
+            <br>
+            <div class="text-center">
+                <button class="submit" name="register" >Sign Me Up</button>
+            </div>
+        </form>
+    </div> 
+    <!-- Javascript files for driver registration -->
+    <script src="../views/cab_registration.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Driver</title>
+    <link rel="stylesheet" href="css/driver_registration.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.js"
+        integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"
+        integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+
+
+    <div class="container">
+        <header>
+            <!-- <h1>
+                <a href="#">
+                    <img src="http://tfgms.com/sandbox/dailyui/logo-1.png" alt="Cab services">
+                </a>
+            </h1> -->
+        </header>
+        <h1 class="text-center">Register</h1>
+        <form class="registration-form" action="/driver_registration" method="post">
+            <label class="col-one-half">
+                <span class="label-text" id="firstName">First Name</span>
+                <input type="text" name="firstName" id="firstName1">
+            </label>
+            <label class="col-one-half">
+                <span class="label-text" id="lastName">Last Name</span>
+                <input type="text" name="lastName" id="lastName1">
+            </label>
+            <label>
+                <span class="label-text" id="number">Mobile Number</span>
+                <input type="text" name="number" id="number1">
+            </label>
+            <label>
+                <span class="label-text" id="ID">ID Number</span>
+                <input type="text" name="ID" id="ID1">
+            </label>
+            <label>
+                <span class="label-text" id="email">Email</span>
+                <input type="text" name="email" id="email1">
+            </label>
+            <label class="password">
+                <span class="label-text" id="password">Password</span>
+                <button class="toggle-visibility" title="toggle password visibility" tabindex="-1">
+                    <span class="glyphicon glyphicon-eye-close"></span>
+                </button>
+                <input type="password" name="password" id="password1">
+            </label>
+
+            <div class="text-center">
+                <button class="submit" name="register">Sign Me Up</button>
+            </div>
+        </form>
+    </div>
+    <!-- Javascript files for driver registration -->
+    <script>
+
+        function validation() {
+            var firstName = document.getElementById('firstName1').value;
+            var lastName = document.getElementById('lastName1').value;
+            var number = document.getElementById('number1').value;
+            var ID = document.getElementById('ID1').value;
+            var email = document.getElementById('email1').value;
+            var password = document.getElementById('password1').value;
+            if (firstName == "") {
+                document.getElementById('firstName').innerText = "Please fill first name";
+                return false;
+            }
+            if (!isNaN(firstName)) {
+                document.getElementById('firstName').innerText = "Only characters are allowed for firstname";
+                return false;
+            }
+            if (lastName == "") {
+                document.getElementById('lastName').innerText = "Please fill last name";
+                return false;
+            }
+            if (!isNaN(lastName)) {
+                document.getElementById('lastName').innerText = "Only characters are allowed for lastName";
+                return false;
+            }
+            if (number == "") {
+                document.getElementById('number').innerText = "Please fill Mobile Number";
+                return false;
+            }
+            if (isNaN(number)) {
+                document.getElementById('number').innerText = "Only Numbers are allowed for Mobile Number";
+                return false;
+            }
+            if (number.length != 10) {
+                document.getElementById('number').innerText = "Length of Mobile Number should be 10";
+                return false;
+            }
+            if (ID == "") {
+                document.getElementById('ID').innerText = "Please fill ID Number";
+                return false;
+            }
+            if (email == "") {
+                document.getElementById('email').innerText = "Please fill email ID";
+                return false;
+            }
+            var reg = new RegExp("^[a-zA-Z0-9_.]+@[a-zA-Z0-9.]+$");
+        if (!reg.test(email)) {
+            alert("Invalid e-mail Address!");
+            return false;
+        }
+            if (password == "") {
+                document.getElementById('password').innerText = "Please fill password";
+                return false;
+            }
+
+            if (password.length < 8) {
+                document.getElementById('password').innerText = "Password must have at least 8 characters";
+                return false;
+            }
+            return true;
+
+        }
+        document.getElementsByName('register')[0].addEventListener('click', async (event) => {
+            event.preventDefault();
+            var check = validation();
+            if (check == true) {
+                const response = await fetch(url = "http://localhost:3000/driver_registration", {
+                    method: "POST", // *GET, POST, PUT, DELETE, etc.
+                    mode: "cors", // no-cors, *cors, same-origin
+                    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+                    credentials: "same-origin", // include, *same-origin, omit
+                    headers: {
+                        "Content-Type": "application/json",
+                        // 'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    redirect: "follow", // manual, *follow, error
+                    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+                    body: JSON.stringify({
+                        firstName: document.getElementById("firstName1").value,
+                        lastName: document.getElementById("lastName1").value,
+                        number: document.getElementById("number1").value,
+                        email: document.getElementById("email1").value,
+                        ID: document.getElementById('ID1').value,
+                        password: document.getElementById('password1').value
+                    }),
+                    // body data type must match "Content-Type" header
+                });
+               if(response)
+               {
+                window.location.replace("/");
+               }
+            }
+        }
+        );
+
+
+
+    </script>
+
+
+</body>
+
+</html>
