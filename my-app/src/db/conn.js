@@ -1,5 +1,5 @@
 const mongoose=require("mongoose");
-const mongoDB="mongodb://localhost:27017/Cab_Management";
+const mongoDB="mongodb+srv://rohankumarbehera5:66y4ZeIbb0p7zgck@cluster0.wcsgcec.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
  
 mongoose.connect(mongoDB,{
     useNewUrlParser: true,
