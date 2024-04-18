@@ -20,6 +20,8 @@ const Client = mapboxClient({ accessToken: 'pk.eyJ1Ijoicm9oYW5tZXNzaSIsImEiOiJjb
 // import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 // import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 //const GridFsStorage=require('multer-gridfs-storage');
+const cors = require('cors');
+app.use(cors())
 app.use(session({       // for setting session
     secret: 'my-secret-key',
     resave: false,
@@ -217,6 +219,7 @@ app.get("/user_detail_update",requireloginAuth,(req,res)=>{       //Showing user
             console.log(err);
         }else{
             console.log("Success in showing user details");
+            //console.log(docs);
             res.render('user_detail_update',{records:docs});
         }
 
@@ -224,7 +227,7 @@ app.get("/user_detail_update",requireloginAuth,(req,res)=>{       //Showing user
  })
 
 
-app.post('/user_update',requireloginAuth,(req,res)=>{       // Now Update User Data here using ID
+app.post('/user_update',requireloginAuth,async (req,res)=>{       // Now Update User Data here using ID
     // console.log(2);
     // console.log(req.body);
     // console.log(req.params.id);
@@ -236,7 +239,7 @@ app.post('/user_update',requireloginAuth,(req,res)=>{       // Now Update User D
         }  
         else
         {  
-            console.log(req.body.email);
+            //console.log(req.body.email);
             req.session.email=req.body.email
             console.log("success in updating details");
             res.redirect('/login_homepage');
@@ -445,7 +448,7 @@ app.post('/cab_update/:id',(req,res)=>{       // Now Update Cab Data here using 
         }  
         else
         {  
-             
+             console.log(docs);
             res.redirect('/admin_page');
         }
     });
@@ -503,8 +506,8 @@ app.post("/driver_registration",async (req,res)=>{
         ID:req.body.ID,
         password:req.body.password
     })
-    //console.log("1");
-    await register.insertMany([registerdriver]);
+    console.log(registerdriver);
+    await register.create([registerdriver]);
     res.send(true);
   
 

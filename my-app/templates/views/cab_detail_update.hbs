@@ -70,7 +70,12 @@
 <script>
             document.getElementsByName('update')[0].addEventListener('click', async (event) => {
             event.preventDefault();
-            
+                var model= document.getElementById("model").value;
+                var ID= document.getElementById("ID").value;
+                var colour= document.getElementById("colour").value;
+                console.log(model);
+                console.log(ID);
+                console.log(colour);
                 const response = await fetch(url = "http://localhost:3000/cab_update/{{records.id}}", {
                     method: "POST", // *GET, POST, PUT, DELETE, etc.
                     mode: "cors", // no-cors, *cors, same-origin
@@ -84,9 +89,9 @@
                     referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
                     body: JSON.stringify({
                         model: document.getElementById("model").value,
-                        ID: document.getElementById('ID').value,
-                        colour: document.getElementById("colour").value,
-                        avatar: document.getElementById("avatar").value,
+                        ID: document.getElementById("ID").value,
+                        colour: document.getElementById("colour").value
+                        
                     }),
                     // body data type must match "Content-Type" header
                 });

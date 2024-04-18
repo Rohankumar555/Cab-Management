@@ -76,7 +76,7 @@
 <script>
             document.getElementsByName('update')[0].addEventListener('click', async (event) => {
             event.preventDefault();
-            
+                 
                 const response = await fetch(url = "http://localhost:3000/user_update", {
                     method: "POST", // *GET, POST, PUT, DELETE, etc.
                     mode: "cors", // no-cors, *cors, same-origin
@@ -92,7 +92,6 @@
                         firstName: document.getElementById("first").value,
                         lastName: document.getElementById("last").value,
                         number: document.getElementById("number").value,
-                        email: document.getElementById("email").value,
                         ID: document.getElementById('ID').value,
                         password: document.getElementById('password').value
                     }),
