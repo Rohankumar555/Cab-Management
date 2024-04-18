@@ -103,18 +103,17 @@ async function hashPassword(plaintextPassword) {
     // Store hash in the database
 }
 app.post("/login", async (req, res) => {
-    console.log(req.body);
+   
     
     let { username, password } = req.body;
     
     const users = await  user.findOne({ email: username }).lean()
-    console.log(users);
+    
     if (!users) {
         
       res.status(404).send({message: "No  User Found"});
     } else {
-        console.log(password);
-        console.log(users.password);
+         
        const hashedPassword2 = await bcrypt.hash(users.password, 13);
        var validatePassword = await bcrypt.compare(password,hashedPassword2);
        //console.log(validatePassword);
@@ -126,8 +125,7 @@ app.post("/login", async (req, res) => {
         res.render('login', { error: 'Invalid password' });
         //res.redirect("/login");
       } else {
-    console.log(req.session);
-    console.log("abcd");
+    
     req.session.user_id=users._id;
     req.session.firstName=users.firstName;
     req.session.email=users.email;
@@ -135,7 +133,7 @@ app.post("/login", async (req, res) => {
       }
 }});
 const requireloginAuth = (req, res, next) => {
-    console.log(req.session.user_id);
+    //console.log(req.session.user_id);
     
     if (req.session.user_id) {
         next(); // User is authenticated, continue to next middleware
@@ -144,12 +142,12 @@ const requireloginAuth = (req, res, next) => {
     }
 }
 app.get("/login_homepage",requireloginAuth,async(req,res)=>{
-    console.log(req.session);
+    //console.log(req.session);
     let records;
     var display2=await cab.find({}).exec(function(err,cab_data){
         
         
-        console.log(cab_data);
+        //console.log(cab_data);
         if(cab_data){
             
             res.render("login_homepage",{firstName:req.session.firstName,email:req.session.email,records:cab_data});
@@ -173,10 +171,10 @@ app.get("/login_homepage",requireloginAuth,async(req,res)=>{
 });
 
 app.post("/login_homepage",requireloginAuth,async(req,res)=>{
-    console.log(req.session);
-     console.log("You are in post login homepage now");
+    // console.log(req.session);
+    //  console.log("You are in post login homepage now");
     try{
-        console.log(req.body);
+        //console.log(req.body);
         const register_ride_detail=({
             pickup:req.body.pickup,
             destination:req.body.destination,
@@ -196,12 +194,12 @@ app.post("/login_homepage",requireloginAuth,async(req,res)=>{
 })
 
 app.get("/ride_history",requireloginAuth,async(req,res)=>{      // shows history of all rides for a particular user(using email)
-    console.log(req.session);
+    //console.log(req.session);
     let records3;
     var display2=await ride_detail.find({email:req.session.email}).exec(function(err,ride_data){
         
         
-        console.log(ride_data);
+        //console.log(ride_data);
         if(ride_data){
            records3=ride_data;
             res.render("ride_history",{records:records3});
@@ -212,10 +210,10 @@ app.get("/ride_history",requireloginAuth,async(req,res)=>{      // shows history
 });
 
 app.get("/user_detail_update",requireloginAuth,(req,res)=>{       //Showing user details for update
-    console.log("Page of user details");
+    //console.log("Page of user details");
     user.findById({_id:req.session.user_id},req.body,{new:true},(err,docs)=>{
         if(err){
-            console.log("Cant retrieve data and edit");
+            //console.log("Cant retrieve data and edit");
             console.log(err);
         }else{
             console.log("Success in showing user details");
@@ -227,13 +225,14 @@ app.get("/user_detail_update",requireloginAuth,(req,res)=>{       //Showing user
 
 
 app.post('/user_update',requireloginAuth,(req,res)=>{       // Now Update User Data here using ID
-    console.log(2);
-    console.log(req.body);
-    console.log(req.params.id);
+    // console.log(2);
+    // console.log(req.body);
+    // console.log(req.params.id);
     user.findByIdAndUpdate({_id:req.session.user_id},req.body,(err,docs)=>{
         if(err)
         {
-            console.log('Error');
+            //console.log('Error');
+            console.log(err);
         }  
         else
         {  
@@ -249,7 +248,7 @@ app.get("/logout",requireloginAuth,(req,res)=>{
     req.session.user_id=undefined;
     req.session.firstName=undefined;
     req.session.email=undefined;
-    console.log("came to logout page");
+    //console.log("came to logout page");
     res.redirect("/");
 });
 app.get("/admin_login",(req,res)=>{
@@ -257,17 +256,17 @@ app.get("/admin_login",(req,res)=>{
 });
 app.post("/admin_login", async (req, res) => {
 
-    console.log(req.body);
+    //console.log(req.body);
     
     let { username, password } = req.body;
     
     const users = await admin.findOne({ email: username }).lean()
-    console.log(users);
+    //console.log(users);
     if (!users) {
       res.status(404).send({message: "No  User Found"})
     } else {
-        console.log(password);
-        console.log(users.password);
+        // console.log(password);
+        // console.log(users.password);
         const hashedPassword2 = await bcrypt.hash(users.password, 13);
        var validatePassword = await bcrypt.compare(password,hashedPassword2);
        //console.log(validatePassword);
@@ -311,18 +310,18 @@ app.get("/driver_upd&delete",async(req,res,next)=>{    //display all driver deta
 
 
 app.get("/driver_upd&delete/:id",(req,res)=>{       //Deleting Driveer Details
-    console.log(req.params.id);
-    console.log(req.params.id.length);
+    // console.log(req.params.id);
+    // console.log(req.params.id.length);
     var myId = JSON.stringify(req.params.id);
     myId = JSON.parse(myId);
-    console.log(myId.length);
-    console.log(myId);
-    console.log(myId.length);
+    // console.log(myId.length);
+    // console.log(myId);
+    // console.log(myId.length);
     register.findByIdAndRemove({'_id': new ObjectId(myId)},(err,doc)=>{
         if(err){
             console.log(err);
         }else{
-            console.log("success1");
+            console.log("success");
             
         }
     })
@@ -331,7 +330,8 @@ app.get("/driver_upd&delete/:id",(req,res)=>{       //Deleting Driveer Details
  app.get("/driver_detail_update/:id",(req,res)=>{       //Showing Driver details for update
     register.findById({_id:req.params.id},req.body,{new:true},(err,docs)=>{
         if(err){
-            console.log("Cant retrieve data and edit");
+            //console.log("Cant retrieve data and edit");
+            console.log(err);
         }else{
             console.log("Success");
             res.render('driver_detail_update',{records:docs});
@@ -342,17 +342,18 @@ app.get("/driver_upd&delete/:id",(req,res)=>{       //Deleting Driveer Details
 
 
 app.post('/driver_update/:id',(req,res)=>{       // Now Update Driver Data here using ID
-    console.log(2);
-    console.log(req.body);
-    console.log(req.params.id);
+    
+    
+    
     register.findByIdAndUpdate({_id:req.params.id},req.body,(err,docs)=>{
         if(err)
         {
-            console.log('Error');
+            //console.log('Error');
+            console.log(err);
         }  
         else
         {  
-            console.log("success2");
+             
             res.redirect('/admin_page');
         }
     });
@@ -364,9 +365,7 @@ app.get("/cab_registration",(req,res)=>{
 });
 app.post("/cab_registration",upload.single('avatar'), async(req,res)=>{
     
-    console.log(req.file);
-    console.log(req.body);
-    console.log(req.body.avatar);
+     
     //console.log(req.file.avatar);
     try{
         var cab_data ={
@@ -410,18 +409,15 @@ app.get("/cab_upd&delete",async(req,res,next)=>{    //display all cab details
 });
 
 app.get("/cab_upd&delete/:id",(req,res)=>{       //Deleting Cab Details
-    console.log(req.params.id);
-    console.log(req.params.id.length);
+    
     var myId = JSON.stringify(req.params.id);
     myId = JSON.parse(myId);
-    console.log(myId.length);
-    console.log(myId);
-    console.log(myId.length);
+    
     cab.findByIdAndRemove({'_id': new ObjectId(myId)},(err,doc)=>{
         if(err){
             console.log(err);
         }else{
-            console.log("success3");
+            console.log("successfully removed");
             
         }
     })
@@ -430,9 +426,9 @@ app.get("/cab_upd&delete/:id",(req,res)=>{       //Deleting Cab Details
 app.get("/cab_detail_update/:id",(req,res)=>{       //Showing Cab details for update
     cab.findById({_id:req.params.id},req.body,{new:true},(err,docs)=>{
         if(err){
-            console.log("Cant retrieve data and edit");
+            console.log(err);
         }else{
-            console.log("Success5");
+            
             res.render('cab_detail_update',{records:docs});
         }
 
@@ -441,17 +437,15 @@ app.get("/cab_detail_update/:id",(req,res)=>{       //Showing Cab details for up
 
 
 app.post('/cab_update/:id',(req,res)=>{       // Now Update Cab Data here using ID
-    console.log(2);
-    console.log(req.body);
-    console.log(req.params.id);
+    
     cab.findByIdAndUpdate({_id:req.params.id},req.body,(err,docs)=>{
         if(err)
         {
-            console.log('Error');
+            console.log(err);
         }  
         else
         {  
-            console.log("success4");
+             
             res.redirect('/admin_page');
         }
     });
@@ -463,7 +457,7 @@ app.get("/user_registration",(req,res)=>{
 });
 app.post("/user_registration",async(req,res)=>{
     try{
-        console.log(req.body);
+         
         const hash = await bcrypt.hash(req.body.password, 10);
         const user_register=({
             firstName:req.body.firstName,
@@ -500,7 +494,7 @@ app.get("/driver_registration",(req,res)=>{
 });
 app.post("/driver_registration",async (req,res)=>{
    try{
-    console.log(req.body);
+     
     const registerdriver=({
         firstName:req.body.firstName,
         lastName:req.body.lastName,
