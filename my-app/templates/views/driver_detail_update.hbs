@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/driver_detail_update.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <title>Update Driver</title>
+    
+</head>
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Pick'n'Drop</a>
+        </div>
+        <div class="navbar-collapse collapse navbar-right main-nav" id="navbar">
+           <ul class="nav navbar-nav ">
+            <li id="sub-1"><a href="/admin_page">Go Back To Admin</a></li>
+            <li id="sub-5"><a href="/logout">Logout</a></li>
+          </ul>
+          
+          <div class="bottom-arrow"></div>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </nav>
+    
+ 
+<div class="container">   
+  <div class="row">  
+    <div class="col-sm-8">
+      
+     <form action="/driver_update/{{records.id}}" method="POST"></form>
+     <div class="card text-center" style="padding:15px;">
+    <h4>Update Driver Records</h4>
+    </div>
+     <table>
+        <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Number</th>
+            <th>ID</th>
+            <th>Password</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                   
+              <td><input type="text" name="first" id="first" value="{{records.firstName}}"></td>
+              <td><input type="text" name="last" id="last" value="{{records.lastName}}"></td>
+              <td><input type="text" name="email" id="email"value="{{records.email}}"></td>
+              <td><input type="text" name="number" id="number" value="{{records.number}}"></td>
+              <td><input type="text" name="ID" id="ID" value="{{records.ID}}"></td>
+              <td><input type="text" name="password" id="password" value="{{records.password}}"></td>
+              {{!-- <td><input type="text" name="user" value="{{records.gender}}"> </td>
+              <td><img src="{{{club.image_file}}}"  class="img-thumbnail" id="image" height="150" width="80"></td> --}}
+              <td><button type="submit" name="update" class="btn btn-primary" onclick="return confirm('Are you sure to Update this record ?')">update</button></td>
+            </tr>
+        </tbody>
+      </table>
+     </form> 
+   </div>
+ </div>
+</div>
+<script>
+            document.getElementsByName('update')[0].addEventListener('click', async (event) => {
+            event.preventDefault();
+            
+                const response = await fetch(url = "http://localhost:3000/driver_update/{{records.id}}", {
+                    method: "POST", // *GET, POST, PUT, DELETE, etc.
+                    mode: "cors", // no-cors, *cors, same-origin
+                    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+                    credentials: "same-origin", // include, *same-origin, omit
+                    headers: {
+                        "Content-Type": "application/json",
+                        // 'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    redirect: "follow", // manual, *follow, error
+                    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+                    body: JSON.stringify({
+                        firstName: document.getElementById("first").value,
+                        lastName: document.getElementById("last").value,
+                        number: document.getElementById("number").value,
+                        email: document.getElementById("email").value,
+                        ID: document.getElementById('ID').value,
+                        password: document.getElementById('password').value
+                    }),
+                    // body data type must match "Content-Type" header
+                });
+                console.log(response);
+               if(response)
+               {
+                window.location.replace("/admin_page");
+               }
+            
+        }
+        );
+</script>
+</body>
+</html>

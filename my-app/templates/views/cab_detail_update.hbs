@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/cab_detail_update.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <title>Update Cab</title>
+</head>
+<body>
+   <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Pick'n'Drop</a>
+        </div>
+        <div class="navbar-collapse collapse navbar-right main-nav" id="navbar">
+           <ul class="nav navbar-nav ">
+            <li id="sub-1"><a href="/admin_page">Go Back To Admin</a></li>
+            <li id="sub-5"><a href="/logout">Logout</a></li>
+          </ul>
+          
+          <div class="bottom-arrow"></div>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </nav>
+
+     
+ 
+<div class="container-fluid">   
+  <div class="row"> 
+    <center>
+      <h4>Update Records</h4> 
+    </center> 
+    <div class="col-sm-8">
+      
+     
+     <form action="/cab_update/{{records.id}}" method="POST"></form>
+      
+     <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th>model</th>
+            <th>ID</th>
+            <th>Colour</th>
+            <th>Image</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                   
+              <td><input type="text" name="model" id="model" value="{{records.model}}"></td>
+               <td><input type="text" name="ID" id="ID" value="{{records.ID}}"></td>
+              <td><input type="text" name="colour" id="colour" value="{{records.colour}}"></td>
+              <td><img src="data:{{records.avatar.contentType}};base64,{{records.avatar.data}} " alt="ddd" style="height:90px; width:100px;  "></td>
+              <td><button type="submit" name="update" class="btn btn-primary" onclick="return confirm('Are you sure to Update this record ?')">update</button></td>
+            </tr>
+        </tbody>
+      </table>
+     </form> 
+   </div>
+ </div>
+</div>
+<script>
+            document.getElementsByName('update')[0].addEventListener('click', async (event) => {
+            event.preventDefault();
+            
+                const response = await fetch(url = "http://localhost:3000/cab_update/{{records.id}}", {
+                    method: "POST", // *GET, POST, PUT, DELETE, etc.
+                    mode: "cors", // no-cors, *cors, same-origin
+                    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+                    credentials: "same-origin", // include, *same-origin, omit
+                    headers: {
+                        "Content-Type": "application/json",
+                        // 'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    redirect: "follow", // manual, *follow, error
+                    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+                    body: JSON.stringify({
+                        model: document.getElementById("model").value,
+                        ID: document.getElementById('ID').value,
+                        colour: document.getElementById("colour").value,
+                        avatar: document.getElementById("avatar").value,
+                    }),
+                    // body data type must match "Content-Type" header
+                });
+                console.log(response);
+               if(response)
+               {
+                window.location.replace("/admin_page");
+               }
+            
+        }
+        );
+</script>
+</body>
+</html>

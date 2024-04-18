@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/cab_upd&delete.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Cab Update and Delete</title>
+</head>
+<body>
+     <center>
+    <div   >
+        <h4 class="text-center  ml-4 mt-4  mb-5">View Records</h4>
+        <table>
+  <thead>
+    
+        <tr>
+      
+      <th>Model</th>
+      <th>Cab ID</th>
+      <th>Colour</th>
+      <th>Image</th>
+      <th>Update</th>
+      <th>Delete</th>
+    </tr>
+    
+    
+  </thead>
+  <tbody>
+     
+   {{#each records}}
+            <tr>
+            
+            <td>{{model}}</td>
+            <td>{{ID}}</td>
+            <td>{{colour}}</td>
+           <td><img src="data:{{avatar.contentType}};base64,{{avatar.data}} " alt="ddd" style="height:90px; width:100px;  "></td>
+            <td><button><a href="/cab_detail_update/{{id}}" class="fa fa-edit"></a></button></td>
+            <td><button><a href="/cab_upd&delete/{{id}}" onclick="return confirm('Are you sure to delete this record ?');" class="fa fa-trash">
+                </a></button>     
+            </td>
+ 
+            </tr>
+    {{/each}}
+   
+  </tbody>
+</table>
+    </div>
+    
+  </center>
+  
+</body>
+</html>

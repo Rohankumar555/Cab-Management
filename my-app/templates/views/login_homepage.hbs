@@ -1,0 +1,347 @@
+
+<!DOCTYPE html lang="en">
+<head>
+  <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome login</title>
+    <link rel="stylesheet" href="css/login_homepage.css">
+
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js"></script>    
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://getbootstrap.com/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+  <script
+        id="search-js"
+        defer
+        src="https://api.mapbox.com/search-js/v1.0.0-beta.19/web.js"
+    >
+    </script>
+    <script>        
+        const script = document.getElementById('search-js');
+        mapboxgl.accessToken = 'pk.eyJ1Ijoicm9oYW5tZXNzaSIsImEiOiJjbHVyYmc3bmowNzM4MnFtb2k4ZGtmM2RsIn0.WY8vifl-gelkK3tElBlvrQ';
+        script.onload = function() {
+            mapboxsearch.autofill({
+                accessToken: mapboxgl.accessToken,
+                options: { country: 'in' }
+            });
+        };
+    </script>
+  </head>
+  <style>
+  
+    #map-container {
+        position: absolute;
+        top: 10%;
+        bottom: 10%;
+        left: 10%;
+        width: 50%;
+        height: 0;
+        padding-bottom: 80%; /* 1:1 Aspect Ratio */
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+    }
+
+    #map {
+        width: 40%;
+        height: 40%;
+    }
+
+
+</style>
+  <body >
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Pick'n'Drop</a>
+        </div>
+        <div class="navbar-collapse collapse navbar-right main-nav" id="navbar">
+           <ul class="nav navbar-nav ">
+            <li id="sub-1"><a href="/user_detail_update">Update Details</a></li>
+            <li id="sub-2"><a href="/ride_history">Your Rides</a></li>
+            <li id="sub-5"><a href="/logout">Logout</a></li>
+          </ul>
+          
+          <div class="bottom-arrow"></div>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </nav>
+    
+    <!-- Sub navbar -->
+    <nav class="subnavbar navbar navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-collapse collapse navbar-right" id="subnavbar">
+          
+          <ul class="nav navbar-nav sub-1" style="display:none;">
+            <li class="active"><a href="#sprockets">Sprockets</a></li>
+            <li><a href="#housewares">Housewares</a></li>
+            <li><a href="#widgets">Widgets &amp; Whatnots</a></li>
+            <li><a href="#tools">Tools</a></li>
+            <li><a href="#utilities">Utilities</a></li>
+          </ul>
+
+          <ul class="nav navbar-nav sub-2" style="display:none;">
+            <li class="active"><a href="#marketing">Marketing</a></li>
+            <li><a href="#sales">Sales</a></li>
+            <li><a href="#service">Customer Service</a></li>
+            <li><a href="#security">Security</a></li>
+            <li><a href="#legal">Rights &amp; Privacy</a></li>
+          </ul>
+          
+          <ul class="nav navbar-nav sub-3" style="display:none;">
+            <li class="active"><a href="#w1">Who</a></li>
+            <li><a href="#w2">What</a></li>
+            <li><a href="#w3">When</a></li>
+            <li><a href="#w4">Where</a></li>
+            <li><a href="#w5">Why</a></li>
+          </ul>
+
+          <ul class="nav navbar-nav sub-4" style="display:none;">
+            <li class="active"><a href="#g1">General</a></li>
+            <li><a href="#g2">Social Networking</a></li>
+            <li><a href="#g3">Servicing</a></li>
+            <li><a href="#g4">Plans</a></li>
+          </ul>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </nav>
+  
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Hello,{{#if firstName}} {{ firstName }}{{/if}}</h1>
+        <p>Unlock seamless travel with just a tap – your journey, your way, with our hassle-free online cab booking app!</p>
+        <p><a class="btn btn-primary btn-lg"   role="button" onClick="document.getElementById('login-form').scrollIntoView();" >Book A Ride»</a></p>
+      </div>
+    </div>
+    {{!-- locating maps --}}
+    <div>
+      <center>
+        <div class="map-container">
+      <div id="map"></div>
+      </div>
+    </center>
+    </div>
+    <br>
+    
+        <div>
+         <input type="text" class="search-form" id="addressInput" placeholder="Enter address to locate" autocomplete="address-line1"/>
+          <button class="search-button" type="buttton" onclick="geocodeAddress()" >Geocode</button>
+        </div>
+      
+          
+        
+       <div class="login-page">
+        <div class="form">
+        
+          <form class="login-form" name="myform" id="login-form" method="post" action="/login_homepage" >
+           
+                  
+                    {{!-- <input type="text" name="pickup" id="pickup" placeholder="Enter pickup address" autocomplete="address-line1"/> --}}
+                <nav>
+                  <input type="text" name="pickup" id="pickup" placeholder="Enter pickup address" autocomplete="address-line1"/>
+                  <input type="text" name="destination" id="destination" placeholder="Enter destination address" autocomplete="address-line1"/>
+               {{!-- <div class="custom-dropdown">
+                        <select name="destination" id="destination" class="form-control">
+                            <option value="">Select Destination</option>
+                            {{#each records1}}
+
+                            <option value="{{city}}">{{city}}</option>
+
+                           {{/each}}
+                        </select>
+                </div> --}}
+               
+                
+                </nav>
+                
+          <div>
+            <div id="date&time">Date and Time</div>
+            <div><input type="datetime-local" id="birthdaytime" name="birthdaytime" placeholder="Date and Time"></div>
+          </div>
+            <div class="custom-dropdown">
+                        <select name="cab" id="cab" class="form-control">
+                            <option value="">Select A Cab</option>
+                            {{#each records}}
+
+                            <option value="{{model}}">{{model}}</option>
+
+                           {{/each}}
+                        </select>
+                </div>
+            <button class="submit" name="register">Book</button>
+             
+          </form>
+        </div>
+      </div>
+</body>
+</html>
+
+<script>
+
+function _(element)
+{
+    return document.getElementById(element);
+}
+
+function fetch_data(parent_element, child_element, type)
+{
+    fetch('/get_data?type='+type+'&parent_value='+parent_element.value+'').then(function(response){
+        return response.json();
+    }).then(function(responseData){
+
+        var html = '';
+
+        if(type == 'load_state')
+        {
+            html = '<option value="">Select State</option>';
+        }
+
+        if(type == 'load_city')
+        {
+            html = '<option value="">Select City</option>';
+        }
+
+        for(var count = 0; count < responseData.length; count++)
+        {
+            html += '<option value="'+responseData[count]+'">'+responseData[count]+'</option>';
+        }
+
+        child_element.innerHTML = html;
+    });
+}
+
+ 
+
+        function validation() {
+            var pickup = document.getElementById('pickup').value;
+            var destination = document.getElementById('destination').value;
+            var cab = document.getElementById('cab').value;
+            var birthdaytime = document.getElementById('birthdaytime').value;
+            
+            if (pickup == "Select Pickup" || pickup == "") {
+                alert("Select a Pickup location")
+                return false;
+            }
+            
+            if (destination == "Destination" || destination == "") {
+                alert("Select a Destination location");
+                return false;
+            }
+            
+            if(destination==pickup){
+                alert(" Destination and Pickup locations are same.Kindly select different locations");
+                return false
+            }
+            
+           
+            if (birthdaytime == "") {
+                 alert("Select a fixed date and time");
+                return false;
+            }
+             
+            if (cab == "Select A Cab" || cab=="") {
+                alert("Select a Cab");
+                return false;
+            }
+
+             
+            return true;
+
+        }
+        document.getElementsByName('register')[0].addEventListener('click', async (event) => {
+            event.preventDefault();
+            var check = validation();
+            if (check == true) {
+                const response = await fetch(url = "http://localhost:3000/login_homepage", {
+                    method: "POST", // *GET, POST, PUT, DELETE, etc.
+                    mode: "cors", // no-cors, *cors, same-origin
+                    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+                    credentials: "same-origin", // include, *same-origin, omit
+                    headers: {
+                        "Content-Type": "application/json",
+                        // 'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    redirect: "follow", // manual, *follow, error
+                    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+                    body: JSON.stringify({
+                        pickup: document.getElementById("pickup").value,
+                        destination: document.getElementById("destination").value,
+                        cab: document.getElementById('cab').value,
+                        birthdaytime: document.getElementById('birthdaytime').value
+                    }),
+                    // body data type must match "Content-Type" header
+                });
+               if(response)
+               {
+                console.log("Hello");
+                console.log(response.json());
+                window.location.replace("/login_homepage");
+               }
+            }
+        }
+        );
+        mapboxgl.accessToken = 'pk.eyJ1Ijoicm9oYW5tZXNzaSIsImEiOiJjbHVyYmc3bmowNzM4MnFtb2k4ZGtmM2RsIn0.WY8vifl-gelkK3tElBlvrQ';
+        var api_key = "pk.eyJ1Ijoicm9oYW5tZXNzaSIsImEiOiJjbHVyYmc3bmowNzM4MnFtb2k4ZGtmM2RsIn0.WY8vifl-gelkK3tElBlvrQ";
+
+        var map = new mapboxgl.Map({
+          container:'map',
+          center: [0, 51],
+          style: "mapbox://styles/mapbox/streets-v11",
+          zoom: 11
+        });
+        mapboxsearch.autofill({
+          accessToken: mapboxgl.accessToken,
+          options: { country: 'india' }
+        });
+
+        function geocodeAddress() {
+           
+          var address = document.getElementById("addressInput").value;
+          
+          $.get(
+              "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
+              encodeURIComponent(address) + ".json?access_token=" + api_key,
+              function(data) {
+                  console.log(data);
+                  var coordinates = data.features[0].geometry.coordinates;
+                  console.log("Coordinates:", coordinates);
+                  {{!-- console.log(map); --}}
+                  // You can use the coordinates as needed, such as displaying on the map
+                   map.flyTo({
+                      center: coordinates,
+                      zoom: 15
+                  });
+                   new mapboxgl.Marker()
+                .setLngLat(coordinates)
+                .addTo(map);
+                  
+              }
+          ).fail(function(jqXHR, textStatus, errorThrown) {
+              alert("There was an error while geocoding: " + errorThrown);
+          });
+      }
+
+
+          
+
+</script>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+ 
+ 
+    
+</body>

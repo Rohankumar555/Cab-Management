@@ -1,0 +1,274 @@
+body {
+    background: url("pics/taxi3.jpg") center no-repeat;
+    padding-top: 50px;
+    padding-bottom: 20px;
+    font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;    
+  }
+  
+  .navbar.navbar-inverse.navbar-fixed-top {
+    background: #000;
+  }
+  
+  .main-nav ul.navbar-nav li a {
+    text-transform: uppercase;
+    color: rgb(239, 195, 63);
+  }
+  
+  .main-nav ul.navbar-nav li.active a,
+  .main-nav ul.navbar-nav li a:hover {
+    text-transform: uppercase;
+    color: rgb(255,255,255);
+    text-decoration: underline;
+    background: inherit !important;
+  }
+  
+  .main-nav button.btn.btn-warning {
+    color: #000;
+    background: rgb(239, 195, 63);
+    border-radius: 18px;
+    font-weight: bold;
+    border: none;
+  }
+  
+  .navbar-inverse .navbar-nav li.active:after {
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 7px solid #000;
+    top: 51px;
+    left: 40px;
+    position: absolute;
+    z-index: 99999;
+    content: "";
+  }
+  
+  .bottom-arrows {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #f00;
+    bottom: 0;
+    top: 51px;
+    position: absolute;
+    z-index: 99999;
+  }
+  
+  .subnavbar {
+    &.navbar-fixed-top {
+      top: 50px;
+      position: fixed;
+      background: rgb(133, 169, 42);
+      z-index: 1000;
+    }
+    ul.navbar-nav li a {
+      text-transform: uppercase;
+      color: white;
+      &:hover,
+      &:focus {
+        background: rgb(98, 42, 169);
+        text-decoration: underline;
+        color: rgb(155, 155, 155);
+      }
+    }
+    ul.nav.navbar-nav.active {
+      display: block !important;
+    }
+  }
+
+  /* placeholder for login */
+  .login-page {
+    width: 360px;
+    padding: 8% 0 0;
+    margin: auto;
+  }
+  .column {
+    float: left;
+    width: 50%;
+  }
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  .form {
+    position: relative;
+    z-index: 1;
+    background: #FFFFFF;
+    max-width: 360px;
+    margin: 0 auto 100px;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  }
+  .form input {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+  }
+  .form button {
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: #4CAF50;
+    width: 100%;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+  }
+  .form button:hover,.form button:active,.form button:focus {
+    background: #43A047;
+  }
+  .form .message {
+    margin: 15px 0 0;
+    color: #b3b3b3;
+    font-size: 12px;
+  }
+  .form .message a {
+    color: #4CAF50;
+    text-decoration: none;
+  }
+  .form .register-form {
+    display: none;
+  }
+  .container {
+    position: relative;
+    z-index: 1;
+    margin: 0 auto;
+  }
+  .container:before, .container:after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+  .container .info {
+    margin: 50px auto;
+    text-align: center;
+  }
+  .container .info h1 {
+    margin: 0 0 15px;
+    padding: 0;
+    font-size: 36px;
+    font-weight: 300;
+    color: #1a1a1a;
+  }
+  .container .info span {
+    color: #4d4d4d;
+    font-size: 12px;
+  }
+  .container .info span a {
+    color: #000000;
+    text-decoration: none;
+  }
+  .container .info span .fa {
+    color: #EF3B3A;
+  }
+  /* End of placeholder css */
+
+
+  /*Dropdown CSS*/
+   /* Custom dropdown */
+.custom-dropdown {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 10px; /* demo only */
+  }
+  
+  .custom-dropdown select {
+    background-color: #4CAF50;;
+    color: #fff;
+    font-size: inherit;
+    padding: .5em;
+    padding-right: 2.5em;	
+    border: 0;
+    margin: 0;
+    border-radius: 3px;
+    text-indent: 0.01px;
+    text-overflow: '';
+    -webkit-appearance: button; /* hide default arrow in chrome OSX */
+  }
+  
+  .custom-dropdown::before,
+  .custom-dropdown::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+  }
+  
+  .custom-dropdown::after { /*  Custom dropdown arrow */
+    content: "\25BC";
+    height: 1em;
+    font-size: .625em;
+    line-height: 1;
+    right: 1.2em;
+    top: 50%;
+    margin-top: -.5em;
+  }
+  
+  .custom-dropdown::before { /*  Custom dropdown arrow cover */
+    width: 2em;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border-radius: 0 3px 3px 0;
+  }
+  
+  .custom-dropdown select[disabled] {
+    color: rgba(0,0,0,.3);
+  }
+  
+  .custom-dropdown select[disabled]::after {
+    color: rgba(0,0,0,.1);
+  }
+  
+  .custom-dropdown::before {
+    background-color: rgba(0,0,0,.15);
+  }
+  
+  .custom-dropdown::after {
+    color: rgba(0,0,0,.4);
+  }
+/* End of Dropwdown CSS */
+
+/* For geocoding search */
+.search-form {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-left: 35%;
+  width: 20%;
+  margin-right: 20px; /* Adjust spacing between input and button */
+}
+
+.search-form:focus {
+  outline: none; /* Remove default focus outline */
+}
+
+.search-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.search-button:hover {
+  background-color: #0056b3; /* Darker color on hover */
+}
