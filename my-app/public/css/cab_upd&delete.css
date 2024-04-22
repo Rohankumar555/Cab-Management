@@ -32,11 +32,10 @@ body{
 	background: linear-gradient(45deg, #49a09d, #c2d914);
 	font-family: sans-serif;
 	font-weight: 100;
-    min-height: 80vh;
-    max-width: 4000px;
+    min-height: 100vh;
     display: grid;
     place-items: center;
-    padding: 6rem;
+    padding: 2rem;
 }
 
 
@@ -56,7 +55,7 @@ table 			      {
   td,th           { padding-left:8px}
 
   thead tr        { 
-    height:30px;
+    height:60px;
     background:#FFED86;
     font-size:16px;
   }
@@ -120,11 +119,20 @@ blockquote {
   box-shadow: 0 4px 15px 0 rgba(23, 168, 108, 0.75);
 }
 
- 
+body {
+	margin: 0;
+	background: linear-gradient(45deg, #49a09d, #c2d914);
+	font-family: sans-serif;
+	font-weight: 100;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 2rem;
+}
 
 .container {
 	position: absolute;
-	top: 30%;
+	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
@@ -174,4 +182,76 @@ tbody {
 			}
 		}
 	}
+}
+
+.navbar.navbar-inverse.navbar-fixed-top {
+  background: #000;
+}
+
+.main-nav ul.navbar-nav li a {
+  text-transform: uppercase;
+  color: rgb(239, 195, 63);
+}
+
+.main-nav ul.navbar-nav li.active a,
+.main-nav ul.navbar-nav li a:hover {
+  text-transform: uppercase;
+  color: rgb(40, 170, 72);
+  text-decoration: underline;
+  background: inherit !important;
+}
+
+.main-nav button.btn.btn-warning {
+  color: #000;
+  background: rgb(239, 195, 63);
+  border-radius: 18px;
+  font-weight: bold;
+  border: none;
+}
+
+.navbar-inverse .navbar-nav li.active:after {
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 7px solid #000;
+  top: 51px;
+  left: 40px;
+  position: absolute;
+  z-index: 99999;
+  content: "";
+}
+
+.bottom-arrows {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #f00;
+  bottom: 0;
+  top: 51px;
+  position: absolute;
+  z-index: 99999;
+}
+
+.subnavbar {
+  &.navbar-fixed-top {
+    top: 50px;
+    position: fixed;
+    background: rgb(133, 169, 42);
+    z-index: 1000;
+  }
+  ul.navbar-nav li a {
+    text-transform: uppercase;
+    color: white;
+    &:hover,
+    &:focus {
+      background: rgb(28, 170, 30);
+      text-decoration: underline;
+      color: rgb(155, 155, 155);
+    }
+  }
+  ul.nav.navbar-nav.active {
+    display: block !important;
+  }
 }
