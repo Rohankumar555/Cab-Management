@@ -240,7 +240,7 @@ app.post('/user_update',requireloginAuth,async (req,res)=>{       // Now Update 
         else
         {  
             //console.log(req.body.email);
-            req.session.email=req.body.email
+            //req.session.email=req.body.email
             console.log("success in updating details");
             res.redirect('/login_homepage');
         }
